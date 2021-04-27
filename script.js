@@ -1,39 +1,46 @@
 // Assignment code here
+
 var generatePassword = function() {
-  var passList = [];
-  for (var i = 0; i <= passLen; i++){
-    passList.push(" ");   
-  }
 
   var pickNum = function () {
     if (addNum) {
-      passList[i] = Math.floor(Math.random() * 10) + 1;
+      passList[x] = Math.floor(Math.random() * 10);
+      console.log("num");
     }
   }
 
   var pickSpecChar = function () {
     if (addSpecChar) {
-      passList[i] = specChar[(Math.floor(Math.random()* 10) + 1)];
+      passList[x] = specChar[(Math.floor(Math.random()* 10))];
+      console.log("Char")
     }
   }
 
   var pickLetter = function () {
     var rando = Math.floor(Math.random() * 10) + 50;
     if (rando % 2 === 0 && passLower) {
-      passList[i] = letters[(Math.floor(Math.random()* 10) + 1)];
+      passList[x] = letters[(Math.floor(Math.random()* 10) + 1)];
+      console.log("low")
     }
     else if (passUpper){
-      passList[i] = letters[(Math.floor(Math.random()* 10) + 1)].toUpperCase();
+      passList[x] = letters[(Math.floor(Math.random()* 10) + 1)].toUpperCase();
+      console.log("up")
     }
   }
 
   var letters = ['A','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
-  var specChar = ['!', '@', '#', '$', '%', '^', '&', '*', '?', ';'];
+  var specChar = ['_', '#', '$', '%', '^', '&', '*', '?', ';', '+'];
 
   var passLen = window.prompt("How long do you want your password? 8-128 characters.");
 
-  if (passLen >= 8 && passLen <=128){
+  var passList = [];
+  for (var i = 0; i < passLen; i++){
+    passList.push("fail");   
+  }
+  console.log(passList)
+
+  if (passLen >= 8 && passLen < 129){
 
     var addSpecChar = window.confirm("Do you want special characters in your password? EX: !@#$%");
 
@@ -44,17 +51,18 @@ var generatePassword = function() {
     var addNum = window.confirm("Do you want your password to contain numbers?");
 
     
-    for (i = 0; i <= passLen; i++){
-      var listPull = Math.floor(Math.random() * 10);
+    for (var x = 0; x < passLen; x++){
+      var listPull = Math.floor(Math.random() * 10) + 1;
       if (listPull <= 3){
         pickNum();
       }
-      else if (listPull >= 3 && listPull <= 6) {
+      else if (listPull >= 4 && listPull <= 6) {
         pickLetter();
       }
       else {
         pickSpecChar();
       }
+      console.log(passList[x]);
     }
 
     return passList.join("");
@@ -62,11 +70,11 @@ var generatePassword = function() {
   }
   else if (typeof passLen === "string"){
     window.alert("Invalid response. Please pick a number between 8-128");
-    return "Try again!";
+    generatePassword();
   }
   else {
     window.alert("Please pick a password length between 8-128");
-    return "Try again!";
+    generatePassword();
   }
 }
 
