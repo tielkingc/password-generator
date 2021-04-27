@@ -53,10 +53,10 @@ var generatePassword = function() {
     
     for (var x = 0; x < passLen; x++){
       var listPull = Math.floor(Math.random() * 10) + 1;
-      if (listPull <= 3){
+      if (listPull <= 3 && addNum){
         pickNum();
       }
-      else if (listPull >= 4 && listPull <= 6) {
+      else if (listPull >= 4 && listPull <= 6 && (passUpper || passLower)) {
         pickLetter();
       }
       else {
