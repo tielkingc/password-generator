@@ -13,7 +13,6 @@ var generatePassword = function() {
   for (var i = 0; i < passLen; i++){
     passList.push("");   
   }
-  console.log(passList)
 
   if (passLen >= 8 && passLen < 129){
 
@@ -42,17 +41,12 @@ var generatePassword = function() {
       pullLists.push(4);
     }
 
-   
-
-    console.log(pullLists);
     for (var x = 0; x < passLen; x++){
       var listPull = Math.floor(Math.random() * 10);
       while (pullLists.includes(listPull) === false) {
         listPull = Math.floor(Math.random() * 10);
-        console.log("no")
       }
       obj[listPull]();
-      console.log(listPull)
     }
 
     return passList.join("");
