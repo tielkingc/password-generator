@@ -1,32 +1,7 @@
 // Assignment code here
-
 var generatePassword = function() {
-
-  var pickNum = function () {
-    if (addNum) {
-      passList[x] = Math.floor(Math.random() * 10);
-      console.log("num");
-    }
-  }
-
-  var pickSpecChar = function () {
-    if (addSpecChar) {
-      passList[x] = specChar[(Math.floor(Math.random()* 10))];
-      console.log("Char")
-    }
-  }
-
-  var pickLetter = function () {
-    var rando = Math.floor(Math.random() * 10) + 50;
-    if (rando % 2 === 0 && passLower) {
-      passList[x] = letters[(Math.floor(Math.random()* 10) + 1)];
-      console.log("low")
-    }
-    else if (passUpper){
-      passList[x] = letters[(Math.floor(Math.random()* 10) + 1)].toUpperCase();
-      console.log("up")
-    }
-  }
+  var pullLists = []
+  var obj = {}
 
   var letters = ['A','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 
@@ -36,37 +11,48 @@ var generatePassword = function() {
 
   var passList = [];
   for (var i = 0; i < passLen; i++){
-    passList.push("fail");   
+    passList.push("");   
   }
   console.log(passList)
 
   if (passLen >= 8 && passLen < 129){
 
     var addSpecChar = window.confirm("Do you want special characters in your password? EX: !@#$%");
-
-    var passUpper = window.confirm("Do you want your password to contain uppercase letters?");
-
-    var passLower = window.confirm("Do you want your password to contain lowercase lettes?");
-
-    var addNum = window.confirm("Do you want your password to contain numbers?");
-
     
+    var passUpper = window.confirm("Do you want your password to contain uppercase letters?");
+    
+    var passLower = window.confirm("Do you want your password to contain lowercase lettes?");
+    
+    var addNum = window.confirm("Do you want your password to contain numbers?");
+    
+    if (addNum){
+      obj[1] = function () {passList[x] = Math.floor(Math.random() * 10)};
+      pullLists.push(1)
+    }
+    if (addSpecChar) {
+      obj[2] = function () {passList[x] = specChar[(Math.floor(Math.random()* 10))]};
+      pullLists.push(2)
+    }
+    if (passLower) {
+      obj[3] = function () {passList[x] = letters[(Math.floor(Math.random()* 10) + 1)]}
+      pullLists.push(3);
+    }
+    if (passUpper) {
+      obj[4] = function () {passList[x] = letters[(Math.floor(Math.random()* 10) + 1)].toUpperCase()}
+      pullLists.push(4);
+    }
+
+   
+
+    console.log(pullLists);
     for (var x = 0; x < passLen; x++){
-      var listPull = Math.floor(Math.random() * 10) + 1;
+      var listPull = Math.floor(Math.random() * 10);
+      while (pullLists.includes(listPull) === false) {
+        listPull = Math.floor(Math.random() * 10);
+        console.log("no")
+      }
+      obj[listPull]();
       console.log(listPull)
-      if (listPull <= 3 && addNum){
-        pickNum();
-      }
-      else if (passUpper && listPull <= 6) {
-        pickLetter();
-      }
-      else if (listPull <= 6 && passLower) {
-        pickLetter()
-      }
-      else {
-        pickSpecChar();
-      }
-      console.log(passList[x]);
     }
 
     return passList.join("");
